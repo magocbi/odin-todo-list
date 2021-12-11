@@ -16,11 +16,9 @@ const eventAggregator = (function () {
   }
 
   function unsubscribe(event, handler) {
-    console.log(events[event]);
     if (events.hasOwnProperty(event)) {
       const index = events[event].indexOf(handler);
       if (index >= 0) events[event].splice(index, 1);
-      console.log(events[event]);
     }
   }
 
