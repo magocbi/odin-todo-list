@@ -17,6 +17,7 @@ body {
 /* Utitlies */
 
 .success-btn {
+  cursor: pointer;
   padding: 0.3em 0.9em;
   border: 1px solid hsl(var(--clr-black) / 0.5);
   background-color: hsl(var(--clr-white));
@@ -32,6 +33,7 @@ body {
 }
 
 .danger-btn {
+  cursor: pointer;
   padding: 0.3em 0.9em;
   border: 1px solid hsl(var(--clr-black) / 1);
   background-color: hsl(var(--clr-black));
@@ -80,6 +82,10 @@ body {
 }
 
 /* Sidebar Projects */
+.projects-nav {
+  display: flex;
+  flex-direction: column;
+}
 
 .projects-nav-header {
   display: flex;
@@ -87,9 +93,28 @@ body {
   align-items: center;
 }
 
-.projects-nav {
+.project-list {
+  list-style: none;
   display: flex;
   flex-direction: column;
+  gap: 0.1rem;
+  padding: 0;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 0 0.3em;
+}
+
+.project-item:hover {
+  background-color: hsl(var(--clr-black) / 0.2);
+}
+
+.project-item .selected {
+  background-color: hsl(var(--clr-black) / 0.4);
 }
 
 /* Overlay */

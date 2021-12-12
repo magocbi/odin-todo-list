@@ -21,10 +21,12 @@ const projectsView = (function () {
 
   function addProject({ name, projectId }) {
     const project = document.createElement('li');
+    project.classList.add('project-item');
     project.dataset.id = projectId;
     const title = document.createElement('h3');
     title.textContent = name;
     const deleteBtn = document.createElement('button');
+    deleteBtn.classList.add('danger-btn');
     deleteBtn.textContent = '-';
     deleteBtn.onclick = onDelete;
     project.append(title, deleteBtn);
@@ -46,6 +48,7 @@ const projectsView = (function () {
     const projectsHeader = document.createElement('div');
     projectsHeader.classList.add('projects-nav-header');
     const addBtn = document.createElement('button');
+    addBtn.classList.add('success-btn');
     addBtn.textContent = '+';
     addBtn.onclick = onShowProjectForm;
     const title = document.createElement('h2');
