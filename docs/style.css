@@ -79,6 +79,19 @@ body {
   flex-direction: column;
 }
 
+/* Sidebar Projects */
+
+.projects-nav-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.projects-nav {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Overlay */
 
 .overlay {

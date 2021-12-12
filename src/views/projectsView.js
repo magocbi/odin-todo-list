@@ -26,6 +26,7 @@ const projectsView = (function () {
   function render() {
     emptyProjects();
     const projectsHeader = document.createElement('div');
+    projectsHeader.classList.add('projects-nav-header');
     const addBtn = document.createElement('button');
     addBtn.textContent = '+';
     addBtn.onclick = onShowProjectForm;
@@ -39,6 +40,7 @@ const projectsView = (function () {
     container = viewContainer;
     projectsNav = document.createElement('nav');
     projectsNav.id = 'projects-nav';
+    projectsNav.classList.add('projects-nav');
     container.append(projectsNav);
     render();
   }
