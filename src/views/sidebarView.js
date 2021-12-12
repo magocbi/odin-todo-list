@@ -13,6 +13,7 @@ function sidebarView() {
   function createSidebar() {
     const sidebar = document.createElement('nav');
     sidebar.id = 'sidebar';
+    sidebar.classList.add('sidebar');
 
     return sidebar;
   }

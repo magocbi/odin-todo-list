@@ -46,9 +46,17 @@ body {
   transform: scale(1.1);
 }
 
+/* layout */
+
+#content {
+  height: 100%;
+  display: flex;
+}
+
 /* Header */
 
 .header-title {
+  min-height: 10vh;
   width: 100%;
   background-color: hsl(var(--clr-black));
   padding: 0.2rem 0;
@@ -58,6 +66,17 @@ body {
 .header-title .title {
   text-align: center;
   color: hsl(var(--clr-white));
+}
+
+/* Sidebar */
+
+.sidebar {
+  position: fixed;
+  width: 25%;
+  min-height: 90vh;
+  box-shadow: 1px 0px 0px 1px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
 }
 
 /* Overlay */
