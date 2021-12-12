@@ -6,15 +6,13 @@ const projectsController = (function () {
     projectModel.createProject(name);
   }
 
-  function onProjectSelect(e) {
-    const id = e.target.dataset?.id;
-    if (id) {
-      projectModel.selectProject();
-    }
+  function onProjectDelete(id) {
+    projectModel.deleteProject(id);
   }
 
   function initialize() {
     eventAggregator.subscribe('createProject', onProjectCreation);
+    eventAggregator.subscribe('deleteProject', onProjectDelete);
   }
   return { initialize };
 })();

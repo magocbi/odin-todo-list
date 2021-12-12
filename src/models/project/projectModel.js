@@ -17,6 +17,7 @@ const projectModel = (function () {
   function deleteProject(id) {
     const index = projectList.findIndex((project) => project.getId() === id);
     projectList.splice(index, 1);
+    eventAggregator.publish('projectDeleted', id);
   }
 
   function getProject(id) {

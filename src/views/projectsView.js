@@ -6,6 +6,7 @@ const projectsView = (function () {
   let projectList;
 
   eventAggregator.subscribe('projectCreated', addProject);
+  eventAggregator.subscribe('projectDeleted', deleteProject);
 
   function emptyProjects() {
     while (projectList.firstChild) {
@@ -28,6 +29,12 @@ const projectsView = (function () {
     deleteBtn.onclick = onDelete;
     project.append(title, deleteBtn);
     projectList.append(project);
+  }
+
+  function deleteProject(id) {
+    [...projectList.children]
+      .find((project) => project.dataset.id === id)
+      ?.remove();
   }
 
   function onShowProjectForm() {
