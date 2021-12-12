@@ -1,14 +1,17 @@
 import Project from './project';
+import eventAggregator from '../../eventAggregator';
 
 const projectModel = (function () {
   let projectId = 0;
   const defaultProjectId = 0;
   const projectList = [];
+  let currentProject = defaultProjectId;
 
   function createProject(name) {
     projectId += 1;
     const project = Project(projectId, name);
     projectList.push(project);
+    eventAggregator.publish('projectCreated', { name, projectId });
   }
 
   function deleteProject(id) {
@@ -32,7 +35,17 @@ const projectModel = (function () {
     return defaultProjectId;
   }
 
-  return { createProject, deleteProject, getProject, assignTodoToProject };
+  function selectProject(id) {
+    let currentProject = id;
+  }
+
+  return {
+    createProject,
+    deleteProject,
+    getProject,
+    assignTodoToProject,
+    selectProject,
+  };
 })();
 
 export default projectModel;
