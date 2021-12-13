@@ -14,7 +14,15 @@ const todoModel = (function () {
     complete = false
   ) {
     todoId += 1;
-    const todo = Todo(todoId, title, desc, dueDate, priority, notes, complete);
+    const todo = Todo(
+      `${todoId}`,
+      title,
+      desc,
+      dueDate,
+      priority,
+      notes,
+      complete
+    );
     todoList.push(todo);
   }
 
