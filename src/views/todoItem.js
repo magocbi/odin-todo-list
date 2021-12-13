@@ -35,3 +35,5 @@ function todoItem(
   todo.append(header, description, date);
   return todo;
 }
+
+export default todoItem;
