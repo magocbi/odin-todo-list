@@ -41,7 +41,7 @@ const projectModel = (function () {
   }
 
   function createDefaultProject() {
-    const name = 'Home';
+    const name = 'Inbox';
     const project = Project(projectId, name);
     projectList.push(project);
     eventAggregator.publish('defaultAdded', { projectId, name });
@@ -54,6 +54,7 @@ const projectModel = (function () {
     assignTodoToProject,
     selectProject,
     createDefaultProject,
+    getDefaultProjectId,
   };
 })();
 
