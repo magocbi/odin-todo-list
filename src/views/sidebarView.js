@@ -1,4 +1,5 @@
 import projectsView from './projectsView';
+import defaultNavView from './defaultNavView';
 
 function sidebarView() {
   let container;
@@ -14,12 +15,12 @@ function sidebarView() {
     const sidebar = document.createElement('nav');
     sidebar.id = 'sidebar';
     sidebar.classList.add('sidebar');
-
     return sidebar;
   }
 
   function render() {
     emptySidebar();
+    defaultNavView.initialize(sidebar);
     projectsView.initialize(sidebar);
   }
 

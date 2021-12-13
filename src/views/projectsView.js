@@ -1,4 +1,5 @@
 import eventAggregator from '../eventAggregator';
+import navProject from './navProject';
 
 const projectsView = (function () {
   let container;
@@ -20,16 +21,7 @@ const projectsView = (function () {
   }
 
   function addProject({ name, projectId }) {
-    const project = document.createElement('li');
-    project.classList.add('project-item');
-    project.dataset.id = projectId;
-    const title = document.createElement('h3');
-    title.textContent = name;
-    const deleteBtn = document.createElement('button');
-    deleteBtn.classList.add('danger-btn');
-    deleteBtn.textContent = '-';
-    deleteBtn.onclick = onDelete;
-    project.append(title, deleteBtn);
+    const project = navProject(projectId, name, onDelete);
     projectList.append(project);
   }
 

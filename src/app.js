@@ -14,8 +14,8 @@ function App(container) {
   function onShowProjectForm() {
     formProject.classList.remove('hidden');
   }
-  projectsController.initialize();
   sidebar.initialize(container);
+  projectsController.initialize();
 }
 
 const app = App(content);

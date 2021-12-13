@@ -93,7 +93,8 @@ body {
   align-items: center;
 }
 
-.project-list {
+.project-list,
+.default-list {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -115,6 +116,10 @@ body {
 
 .project-item .selected {
   background-color: hsl(var(--clr-black) / 0.4);
+}
+
+.default-list .project-item {
+  justify-content: center;
 }
 
 /* Overlay */

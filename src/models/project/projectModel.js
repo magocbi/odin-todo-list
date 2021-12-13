@@ -40,12 +40,20 @@ const projectModel = (function () {
     let currentProject = id;
   }
 
+  function createDefaultProject() {
+    const name = 'Home';
+    const project = Project(projectId, name);
+    projectList.push(project);
+    eventAggregator.publish('defaultAdded', { projectId, name });
+  }
+
   return {
     createProject,
     deleteProject,
     getProject,
     assignTodoToProject,
     selectProject,
+    createDefaultProject,
   };
 })();
 

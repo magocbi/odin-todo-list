@@ -13,6 +13,7 @@ const projectsController = (function () {
   function initialize() {
     eventAggregator.subscribe('createProject', onProjectCreation);
     eventAggregator.subscribe('deleteProject', onProjectDelete);
+    projectModel.createDefaultProject();
   }
   return { initialize };
 })();
