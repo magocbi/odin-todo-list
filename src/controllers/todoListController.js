@@ -9,7 +9,7 @@ const todoListController = (function () {
     currentTodoList = todoIdList.filter((todo) =>
       todoIdList.includes(todo.getId())
     );
-    eventAggregator.publish('todosSelected', currentTodoList);
+    eventAggregator.publish('todosSelected', { name, currentTodoList });
   }
 
   function initialize() {
