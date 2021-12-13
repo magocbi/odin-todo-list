@@ -1,4 +1,5 @@
 import eventAggregator from '../eventAggregator';
+import todoForm from './todoForm';
 import todoItem from './todoItem';
 
 const todoListView = (function () {
@@ -16,6 +17,15 @@ const todoListView = (function () {
     projectTitle.textContent = name;
   }
 
+  function onShowTodoForm(projectList) {
+    const form = todoForm(projectList);
+    todosContainer.append(form);
+  }
+
+  function onAddTodo(e) {
+    eventAggregator.publish('todoFormDataRequired', null);
+  }
+
   function initialize(viewContainer) {
     container = viewContainer;
     todosContainer = document.createElement('main');
@@ -24,10 +34,12 @@ const todoListView = (function () {
     const addTodoBtn = document.createElement('button');
     addTodoBtn.type = 'button';
     addTodoBtn.textContent = 'Add Todo';
+    addTodoBtn.onclick = onAddTodo;
     todosContainer.append(projectTitle, todoList, addTodoBtn);
     container.append(todosContainer);
 
     eventAggregator.subscribe('todosSelected', onTodosSelected);
+    eventAggregator.subscribe('todoFormDataSent', onShowTodoForm);
   }
 
   return { initialize };

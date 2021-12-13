@@ -59,6 +59,7 @@ const projectModel = (function () {
     selectProject,
     createDefaultProject,
     getDefaultProjectId,
+    getProjects,
   };
 })();
 
