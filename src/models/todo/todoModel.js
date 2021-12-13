@@ -1,7 +1,9 @@
 import Todo from './todo.js';
+import eventAggregator from '../../eventAggregator.js';
 
 const todoModel = (function () {
   const todoList = [];
+  let filteredList = [];
   let todoId = 0;
 
   function createTodo(
@@ -45,7 +47,19 @@ const todoModel = (function () {
     return todoList.filter((todo) => idList.includes(todo.getId()));
   }
 
-  return { createTodo, getTodo, removeTodo, editTodo, getTodosFromIdList };
+  function filterList(name, idList) {
+    filteredList = getTodosFromIdList(idList);
+    eventAggregator.publish('todosSelected', { name, filteredList });
+  }
+
+  return {
+    createTodo,
+    getTodo,
+    removeTodo,
+    editTodo,
+    getTodosFromIdList,
+    filterList,
+  };
 })();
 
 export default todoModel;
