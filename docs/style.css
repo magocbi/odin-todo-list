@@ -73,7 +73,7 @@ body {
 /* Sidebar */
 
 .sidebar {
-  position: fixed;
+  /* position: fixed; */
   width: 25%;
   min-height: 90vh;
   box-shadow: 1px 0px 0px 1px rgba(0, 0, 0, 0.15);
