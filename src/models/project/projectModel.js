@@ -9,7 +9,7 @@ const projectModel = (function () {
 
   function createProject(name) {
     projectId += 1;
-    const project = Project(projectId, name);
+    const project = Project(`${projectId}`, name);
     projectList.push(project);
     eventAggregator.publish('projectCreated', { name, projectId });
   }
@@ -21,7 +21,7 @@ const projectModel = (function () {
   }
 
   function getProject(id) {
-    return projectList.find((project) => project.id === id);
+    return projectList.find((project) => project.getId() === id);
   }
   function assignTodoToProject(projectId, todoId) {
     const project = getProject(projectId);
@@ -37,14 +37,19 @@ const projectModel = (function () {
   }
 
   function selectProject(id) {
-    let currentProject = id;
+    currentProject = id;
+    let project = getProject(id);
+    let todoIdList = project.getTodoIdList();
+    eventAggregator.publish('selectTodos', { todoIdList, name: project.name });
   }
 
   function createDefaultProject() {
     const name = 'Inbox';
-    const project = Project(projectId, name);
+    const project = Project(defaultProjectId, name);
     projectList.push(project);
-    eventAggregator.publish('defaultAdded', { projectId, name });
+    eventAggregator.publish('defaultAdded', { defaultProjectId, name });
+    console.log(defaultProjectId);
+    selectProject(defaultProjectId);
   }
 
   return {

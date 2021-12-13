@@ -16,6 +16,7 @@ const projectsView = (function () {
   }
   function onSelect(e) {
     e.stopPropagation();
+    if (e.target.nodeName === 'BUTTON') return;
     const id = e.target.closest('[data-id]').dataset.id;
     eventAggregator.publish('projectSelected', id);
   }

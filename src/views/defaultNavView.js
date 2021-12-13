@@ -10,12 +10,13 @@ const defaultNavView = (function () {
 
   function onSelect(e) {
     e.stopPropagation();
+    if (e.target.nodeName === 'BUTTON') return;
     const id = e.target.closest('[data-id]').dataset.id;
     eventAggregator.publish('projectSelected', id);
   }
 
-  function addDefault({ projectId, name }) {
-    const defaultProject = navProject(projectId, name, onSelect);
+  function addDefault({ defaultProjectId, name }) {
+    const defaultProject = navProject(defaultProjectId, name, onSelect);
     defaultList.append(defaultProject);
   }
 
