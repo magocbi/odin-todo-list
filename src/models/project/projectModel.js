@@ -3,7 +3,7 @@ import eventAggregator from '../../eventAggregator';
 
 const projectModel = (function () {
   let projectId = 0;
-  const defaultProjectId = 0;
+  const defaultProjectId = '0';
   const projectList = [];
   let currentProject = defaultProjectId;
 
@@ -48,7 +48,6 @@ const projectModel = (function () {
     const project = Project(defaultProjectId, name);
     projectList.push(project);
     eventAggregator.publish('defaultAdded', { defaultProjectId, name });
-    console.log(defaultProjectId);
     selectProject(defaultProjectId);
   }
 
