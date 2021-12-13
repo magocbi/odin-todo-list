@@ -1,4 +1,5 @@
 function todoItem(
+  id,
   title,
   priority,
   desc = '',
@@ -7,6 +8,7 @@ function todoItem(
 ) {
   const todo = document.createElement('li');
   todo.classList.add('todo-item');
+  todo.dataset.id = id;
 
   const header = document.createElement('div');
   header.classList.add('todo-header');
