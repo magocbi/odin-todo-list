@@ -14,6 +14,11 @@ const projectsView = (function () {
       projectList.firstChild.remove();
     }
   }
+  function onSelect(e) {
+    e.stopPropagation();
+    const id = e.target.closest('[data-id]').dataset.id;
+    eventAggregator.publish('projectSelected', id);
+  }
 
   function onDelete(e) {
     const id = e.target.closest('[data-id]')?.dataset.id;
@@ -21,7 +26,7 @@ const projectsView = (function () {
   }
 
   function addProject({ name, projectId }) {
-    const project = navProject(projectId, name, onDelete);
+    const project = navProject(projectId, name, onSelect, onDelete);
     projectList.append(project);
   }
 

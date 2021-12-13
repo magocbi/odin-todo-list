@@ -1,4 +1,4 @@
-function navProject(id, name, onDelete = null) {
+function navProject(id, name, onSelect, onDelete = null) {
   const project = document.createElement('li');
   project.classList.add('project-item');
   project.dataset.id = id;
@@ -13,6 +13,8 @@ function navProject(id, name, onDelete = null) {
   } else {
     project.append(title);
   }
+
+  project.onclick = onSelect;
 
   return project;
 }

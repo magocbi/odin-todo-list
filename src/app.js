@@ -2,6 +2,7 @@ import projectsController from './controllers/projectsController';
 import eventAggregator from './eventAggregator';
 import projectForm from './views/projectForm';
 import sidebar from './views/sidebarView';
+import todoListView from './views/todoListView';
 
 const content = document.getElementById('content');
 
@@ -14,7 +15,9 @@ function App(container) {
   function onShowProjectForm() {
     formProject.classList.remove('hidden');
   }
+
   sidebar.initialize(container);
+  todoListView.initialize(container);
   projectsController.initialize();
 }
 

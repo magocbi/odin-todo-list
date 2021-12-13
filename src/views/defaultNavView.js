@@ -8,9 +8,14 @@ const defaultNavView = (function () {
 
   eventAggregator.subscribe('defaultAdded', addDefault);
 
+  function onSelect(e) {
+    e.stopPropagation();
+    const id = e.target.closest('[data-id]').dataset.id;
+    eventAggregator.publish('projectSelected', id);
+  }
+
   function addDefault({ projectId, name }) {
-    const defaultProject = navProject(projectId, name);
-    console.log(defaultList);
+    const defaultProject = navProject(projectId, name, onSelect);
     defaultList.append(defaultProject);
   }
 
