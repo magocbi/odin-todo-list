@@ -3,6 +3,7 @@ function todoItem(
   title,
   toggleComplete,
   onDeleteTodo,
+  onEditTodo,
   priority,
   desc = '',
   dueDate = null,
@@ -28,6 +29,7 @@ function todoItem(
   editBtn.type = 'button';
   editBtn.textContent = 'Edit';
   editBtn.classList.add('success-btn');
+  editBtn.onclick = onEditTodo;
   const deleteBtn = document.createElement('button');
   deleteBtn.type = 'button';
   deleteBtn.textContent = '-';

@@ -1,4 +1,5 @@
 import eventAggregator from '../eventAggregator';
+import todoEditForm from './todoEditForm';
 import todoForm from './todoForm';
 import todoItem from './todoItem';
 
@@ -9,10 +10,15 @@ const todoListView = (function () {
   let projectTitle;
   let addForm;
   let addTodoBtn;
+  let editForm;
 
   function closeForm() {
     addForm?.remove();
+    editForm?.remove();
     addTodoBtn.classList.remove('hidden');
+    for (let todo of todoList.children) {
+      todo.classList.remove('hidden');
+    }
   }
 
   function resetList() {
@@ -33,6 +39,12 @@ const todoListView = (function () {
     eventAggregator.publish('deleteTodo', id);
   }
 
+  function onEditTodo(e) {
+    const todo = e.target.closest('[data-id]');
+    const id = todo.dataset.id;
+    eventAggregator.publish('requestTodoData', id);
+  }
+
   function onTodosSelected({ name, filteredList }) {
     resetList();
     filteredList = filteredList.map(
@@ -42,6 +54,7 @@ const todoListView = (function () {
           title,
           toggleComplete,
           onDeleteTodo,
+          onEditTodo,
           priority,
           desc,
           dueDate,
@@ -57,6 +70,22 @@ const todoListView = (function () {
     closeForm();
     addForm = todoForm(projectList, selectedId, closeForm);
     todosContainer.append(addForm);
+    addTodoBtn.classList.add('hidden');
+  }
+
+  function onShowEditForm({ title, getId, desc, dueDate }) {
+    closeForm();
+    editForm = todoEditForm(
+      { title, id: getId(), desc, dueDate },
+      closeForm,
+      closeForm
+    );
+    const position = [...todoList.children].findIndex(
+      (todo) => todo.dataset.id === getId()
+    );
+    const todo = todoList.children[position];
+    todoList.insertBefore(editForm, todo);
+    todo.classList.add('hidden');
     addTodoBtn.classList.add('hidden');
   }
 
@@ -84,6 +113,7 @@ const todoListView = (function () {
     eventAggregator.subscribe('todosSelected', onTodosSelected);
     eventAggregator.subscribe('todoFormDataSent', onShowTodoForm);
     eventAggregator.subscribe('todoDeleted', removeTodoItem);
+    eventAggregator.subscribe('todoDataSent', onShowEditForm);
   }
 
   return { initialize };

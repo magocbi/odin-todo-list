@@ -20,11 +20,17 @@ const todoListController = (function () {
     todoModel.removeTodo(id);
   }
 
+  function onRequestTodoData(id) {
+    const todo = todoModel.getTodo(id);
+    if (todo) eventAggregator.publish('todoDataSent', todo);
+  }
+
   function initialize() {
     eventAggregator.subscribe('selectTodos', onSelectTodos);
     eventAggregator.subscribe('createTodo', onTodoCreation);
     eventAggregator.subscribe('toggleCompletion', onToggleCompletion);
     eventAggregator.subscribe('deleteTodo', onDeleteTodo);
+    eventAggregator.subscribe('requestTodoData', onRequestTodoData);
   }
 
   return { initialize };
