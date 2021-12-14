@@ -29,6 +29,7 @@ const projectsView = (function () {
   function addProject({ name, projectId }) {
     const project = navProject(projectId, name, onSelect, onDelete);
     projectList.append(project);
+    eventAggregator.publish('projectSelected', projectId);
   }
 
   function deleteProject(id) {

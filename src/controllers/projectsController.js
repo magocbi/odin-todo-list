@@ -18,7 +18,13 @@ const projectsController = (function () {
     let projectList = projectModel
       .getProjects()
       .map(({ name, getId }) => ({ name, id: getId() }));
-    eventAggregator.publish('todoFormDataSent', projectList);
+    let selectedId = projectModel.getCurrentProject();
+    eventAggregator.publish('todoFormDataSent', { selectedId, projectList });
+  }
+
+  function assignTodo({ project, todo }) {
+    projectModel.assignTodoToProject(project, todo);
+    projectModel.selectProject(project);
   }
 
   function initialize() {
@@ -26,6 +32,7 @@ const projectsController = (function () {
     eventAggregator.subscribe('deleteProject', onProjectDelete);
     eventAggregator.subscribe('projectSelected', onProjectSelect);
     eventAggregator.subscribe('todoFormDataRequired', onProjectListRequired);
+    eventAggregator.subscribe('todoCreated', assignTodo);
     projectModel.createDefaultProject();
   }
   return { initialize };

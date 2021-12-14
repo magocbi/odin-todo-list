@@ -7,19 +7,36 @@ const todoListView = (function () {
   let todosContainer;
   let todoList;
   let projectTitle;
+  let addForm;
+  let addTodoBtn;
+
+  function closeForm() {
+    addForm?.remove();
+    addTodoBtn.classList.remove('hidden');
+  }
+
+  function resetList() {
+    while (todoList.firstChild) {
+      todoList.firstChild.remove();
+    }
+  }
 
   function onTodosSelected({ name, filteredList }) {
+    resetList();
     filteredList = filteredList.map(
       ({ getId, title, priority, desc, dueDate, completed }) =>
         todoItem(getId(), title, priority, desc, dueDate, completed)
     );
     todoList.append(...filteredList);
     projectTitle.textContent = name;
+    closeForm();
   }
 
-  function onShowTodoForm(projectList) {
-    const form = todoForm(projectList);
-    todosContainer.append(form);
+  function onShowTodoForm({ selectedId, projectList }) {
+    closeForm();
+    addForm = todoForm(projectList, selectedId, closeForm);
+    todosContainer.append(addForm);
+    addTodoBtn.classList.add('hidden');
   }
 
   function onAddTodo(e) {
@@ -31,7 +48,7 @@ const todoListView = (function () {
     todosContainer = document.createElement('main');
     projectTitle = document.createElement('h2');
     todoList = document.createElement('ul');
-    const addTodoBtn = document.createElement('button');
+    addTodoBtn = document.createElement('button');
     addTodoBtn.type = 'button';
     addTodoBtn.textContent = 'Add Todo';
     addTodoBtn.onclick = onAddTodo;

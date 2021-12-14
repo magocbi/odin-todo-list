@@ -1,8 +1,8 @@
 import eventAggregator from '../eventAggregator';
 
-const container = document.createElement('div');
-const form = document.createElement('form');
 function projectForm() {
+  const container = document.createElement('div');
+  const form = document.createElement('form');
   function closeForm() {
     container.classList.add('hidden');
   }

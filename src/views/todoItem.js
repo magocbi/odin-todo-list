@@ -16,7 +16,7 @@ function todoItem(
   completeBtn.type = 'button';
   completeBtn.classList.add('complete-toggle-btn');
   // &#10003;
-  completeBtn.textContent = completed ? '&#x2713;' : '';
+  completeBtn.textContent = completed ? '&#10003;' : '';
   if (completed) completeBtn.classList.add('complete');
   const todoTitle = document.createElement('h3');
   todoTitle.textContent = title;

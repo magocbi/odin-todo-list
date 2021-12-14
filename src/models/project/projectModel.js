@@ -11,13 +11,19 @@ const projectModel = (function () {
     projectId += 1;
     const project = Project(`${projectId}`, name);
     projectList.push(project);
-    eventAggregator.publish('projectCreated', { name, projectId });
+    eventAggregator.publish('projectCreated', {
+      name,
+      projectId: `${projectId}`,
+    });
   }
 
   function deleteProject(id) {
     const index = projectList.findIndex((project) => project.getId() === id);
     projectList.splice(index, 1);
     eventAggregator.publish('projectDeleted', id);
+    if (id === currentProject) {
+      selectProject(defaultProjectId);
+    }
   }
 
   function getProject(id) {
@@ -51,6 +57,10 @@ const projectModel = (function () {
     selectProject(defaultProjectId);
   }
 
+  function getCurrentProject() {
+    return currentProject;
+  }
+
   return {
     createProject,
     deleteProject,
@@ -60,6 +70,7 @@ const projectModel = (function () {
     createDefaultProject,
     getDefaultProjectId,
     getProjects,
+    getCurrentProject,
   };
 })();
 

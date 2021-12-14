@@ -26,6 +26,7 @@ const todoModel = (function () {
       complete
     );
     todoList.push(todo);
+    eventAggregator.publish('todoCreated', { project, todo: todo.getId() });
   }
 
   function removeTodo(id) {
