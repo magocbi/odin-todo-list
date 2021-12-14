@@ -12,9 +12,14 @@ const todoListController = (function () {
     todoModel.createTodo(title, project, desc, date);
   }
 
+  function onToggleCompletion(id) {
+    todoModel.toggleCompletion(id);
+  }
+
   function initialize() {
     eventAggregator.subscribe('selectTodos', onSelectTodos);
     eventAggregator.subscribe('createTodo', onTodoCreation);
+    eventAggregator.subscribe('toggleCompletion', onToggleCompletion);
   }
 
   return { initialize };

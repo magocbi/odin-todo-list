@@ -53,6 +53,11 @@ const todoModel = (function () {
     eventAggregator.publish('todosSelected', { name, filteredList });
   }
 
+  function toggleCompletion(id) {
+    const todo = getTodo(id);
+    todo.complete = !todo.complete;
+  }
+
   return {
     createTodo,
     getTodo,
@@ -60,6 +65,7 @@ const todoModel = (function () {
     editTodo,
     getTodosFromIdList,
     filterList,
+    toggleCompletion,
   };
 })();
 

@@ -21,11 +21,26 @@ const todoListView = (function () {
     }
   }
 
+  function toggleComplete(e) {
+    const btn = e.target;
+    const id = btn.closest('[data-id]').dataset.id;
+    btn.classList.toggle('completed');
+    eventAggregator.publish('toggleCompletion', id);
+  }
+
   function onTodosSelected({ name, filteredList }) {
     resetList();
     filteredList = filteredList.map(
       ({ getId, title, priority, desc, dueDate, completed }) =>
-        todoItem(getId(), title, priority, desc, dueDate, completed)
+        todoItem(
+          getId(),
+          title,
+          toggleComplete,
+          priority,
+          desc,
+          dueDate,
+          completed
+        )
     );
     todoList.append(...filteredList);
     projectTitle.textContent = name;
