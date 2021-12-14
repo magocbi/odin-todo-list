@@ -20,18 +20,22 @@ function todoItem(
   if (completed) completeBtn.classList.add('complete');
   const todoTitle = document.createElement('h3');
   todoTitle.textContent = title;
+  todoTitle.classList.add('todo-title');
   const editBtn = document.createElement('button');
   editBtn.type = 'button';
   editBtn.textContent = 'Edit';
+  editBtn.classList.add('success-btn');
   const deleteBtn = document.createElement('button');
   deleteBtn.type = 'button';
   deleteBtn.textContent = '-';
+  deleteBtn.classList.add('danger-btn');
 
   const description = document.createElement('p');
   description.classList.add('description');
   description.textContent = desc;
-  const date = document.createElement('input');
-  date.type = 'date';
+  const date = document.createElement('h4');
+  date.textContent = dueDate;
+  date.classList.add('date');
 
   header.append(completeBtn, todoTitle, editBtn, deleteBtn);
   todo.append(header, description, date);

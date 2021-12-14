@@ -172,3 +172,106 @@ body {
   gap: 1rem;
   margin-bottom: 1rem;
 }
+
+/* layout */
+
+main {
+  width: 100%;
+}
+
+main > h2 {
+  margin-left: 2rem;
+}
+
+/* todo list */
+
+.todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+}
+
+.todo-item {
+  width: 80%;
+  border: 1px solid hsl(var(--clr-black) / 0.15);
+  border-radius: 20px;
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-header {
+  display: flex;
+  align-items: center;
+}
+
+.todo-header > *:first-child {
+  margin-right: 1rem;
+}
+
+.todo-header > *:last-child {
+  margin-left: 1rem;
+}
+
+.complete-toggle-btn {
+  cursor: pointer;
+  background-color: hsl(var(--clr-white));
+  color: hsl(var(--clr-black));
+  border: 1px solid hsl(var(--clr-black) / 0.3);
+  border-radius: 100%;
+  display: inline-block;
+  min-width: 20px;
+  min-height: 20px;
+}
+
+.complete-toggle-btn:hover {
+  background-color: hsl(var(--clr-black) / 0.8);
+  color: hsl(var(--clr-white));
+}
+
+.complete-toggle-btn.completed {
+  background-color: hsl(var(--clr-black) / 0.9);
+  color: hsl(var(--clr-white));
+}
+
+.complete-toggle-btn.completed:hover {
+  background-color: hsl(var(--clr-white));
+  color: hsl(var(--clr-black));
+}
+
+.todo-title {
+  margin: 0;
+  margin-right: auto;
+}
+
+.todo-item .description {
+  width: 80%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+}
+
+.todo-item .date {
+  color: red;
+  margin: 0.5rem 0 0;
+}
+
+.add-todo-btn {
+  cursor: pointer;
+  display: block;
+  width: 80%;
+  margin: 0 auto;
+  background-color: hsl(var(--clr-black));
+  border: 1px solid hsl(var(--clr-black) / 0.3);
+  border-radius: 10px;
+  color: hsl(var(--clr-white));
+  padding: 0.5em;
+}
+
+.add-todo-btn:hover {
+  background-color: hsl(var(--clr-black) / 0.5);
+}

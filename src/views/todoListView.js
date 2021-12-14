@@ -48,6 +48,7 @@ const todoListView = (function () {
     todosContainer = document.createElement('main');
     projectTitle = document.createElement('h2');
     todoList = document.createElement('ul');
+    todoList.classList.add('todo-list');
     addTodoBtn = document.createElement('button');
     addTodoBtn.type = 'button';
     addTodoBtn.textContent = 'Add Todo';
