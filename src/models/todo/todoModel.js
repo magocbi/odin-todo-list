@@ -31,7 +31,10 @@ const todoModel = (function () {
 
   function removeTodo(id) {
     const index = todoList.findIndex((todo) => todo.getId() === id);
-    if (index >= 0) todoList.splice(index, 1);
+    if (index >= 0) {
+      todoList.splice(index, 1);
+      eventAggregator.publish('todoDeleted', id);
+    }
     return index;
   }
 

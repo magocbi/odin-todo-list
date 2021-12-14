@@ -16,10 +16,15 @@ const todoListController = (function () {
     todoModel.toggleCompletion(id);
   }
 
+  function onDeleteTodo(id) {
+    todoModel.removeTodo(id);
+  }
+
   function initialize() {
     eventAggregator.subscribe('selectTodos', onSelectTodos);
     eventAggregator.subscribe('createTodo', onTodoCreation);
     eventAggregator.subscribe('toggleCompletion', onToggleCompletion);
+    eventAggregator.subscribe('deleteTodo', onDeleteTodo);
   }
 
   return { initialize };

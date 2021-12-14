@@ -2,6 +2,7 @@ function todoItem(
   id,
   title,
   toggleComplete,
+  onDeleteTodo,
   priority,
   desc = '',
   dueDate = null,
@@ -31,6 +32,7 @@ function todoItem(
   deleteBtn.type = 'button';
   deleteBtn.textContent = '-';
   deleteBtn.classList.add('danger-btn');
+  deleteBtn.onclick = onDeleteTodo;
 
   const description = document.createElement('p');
   description.classList.add('description');

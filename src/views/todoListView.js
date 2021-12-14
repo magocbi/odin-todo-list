@@ -28,6 +28,11 @@ const todoListView = (function () {
     eventAggregator.publish('toggleCompletion', id);
   }
 
+  function onDeleteTodo(e) {
+    const id = e.target.closest('[data-id]').dataset.id;
+    eventAggregator.publish('deleteTodo', id);
+  }
+
   function onTodosSelected({ name, filteredList }) {
     resetList();
     filteredList = filteredList.map(
@@ -36,6 +41,7 @@ const todoListView = (function () {
           getId(),
           title,
           toggleComplete,
+          onDeleteTodo,
           priority,
           desc,
           dueDate,
@@ -58,6 +64,10 @@ const todoListView = (function () {
     eventAggregator.publish('todoFormDataRequired', null);
   }
 
+  function removeTodoItem(id) {
+    [...todoList.children].find((todo) => todo.dataset.id === id)?.remove();
+  }
+
   function initialize(viewContainer) {
     container = viewContainer;
     todosContainer = document.createElement('main');
@@ -73,6 +83,7 @@ const todoListView = (function () {
 
     eventAggregator.subscribe('todosSelected', onTodosSelected);
     eventAggregator.subscribe('todoFormDataSent', onShowTodoForm);
+    eventAggregator.subscribe('todoDeleted', removeTodoItem);
   }
 
   return { initialize };
