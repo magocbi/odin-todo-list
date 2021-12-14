@@ -220,7 +220,7 @@ main > h2 {
 .complete-toggle-btn {
   cursor: pointer;
   background-color: hsl(var(--clr-white));
-  color: hsl(var(--clr-black));
+  color: hsl(var(--clr-white));
   border: 1px solid hsl(var(--clr-black) / 0.3);
   border-radius: 100%;
   display: inline-block;
@@ -240,7 +240,7 @@ main > h2 {
 
 .complete-toggle-btn.completed:hover {
   background-color: hsl(var(--clr-white));
-  color: hsl(var(--clr-black));
+  color: hsl(var(--clr-white));
 }
 
 .todo-title {
