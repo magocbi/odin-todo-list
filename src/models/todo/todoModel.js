@@ -40,7 +40,10 @@ const todoModel = (function () {
 
   function editTodo(id, data) {
     const todo = getTodo(id);
-    if (todo) Object.assign(todo, data);
+    if (todo) {
+      Object.assign(todo, data);
+      eventAggregator.publish('todoEdited', { id, ...todo });
+    }
   }
 
   function getTodo(id) {

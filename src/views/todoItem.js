@@ -39,7 +39,7 @@ function todoItem(
   description.classList.add('description');
   description.textContent = desc;
   const date = document.createElement('h4');
-  date.textContent = dueDate;
+  if (dueDate) date.textContent = dueDate;
   date.classList.add('date');
 
   header.append(completeBtn, todoTitle, editBtn, deleteBtn);

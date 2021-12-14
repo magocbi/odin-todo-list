@@ -1,7 +1,8 @@
 function todoEditForm({ title, id, desc, dueDate }, onEdit, onClose) {
-  const container = document.createElement('div');
+  // const container = document.createElement('div');
   const form = document.createElement('form');
   form.dataset.editId = id;
+  form.onsubmit = onEdit;
 
   const textContainer = document.createElement('div');
   const todoTitle = document.createElement('input');
@@ -22,7 +23,6 @@ function todoEditForm({ title, id, desc, dueDate }, onEdit, onClose) {
   const editBtn = document.createElement('button');
   editBtn.type = 'submit';
   editBtn.textContent = 'Edit';
-  editBtn.onclick = onEdit;
   const cancelBtn = document.createElement('button');
   cancelBtn.type = 'button';
   cancelBtn.textContent = 'Cancel';
@@ -33,8 +33,8 @@ function todoEditForm({ title, id, desc, dueDate }, onEdit, onClose) {
   buttonsContainer.append(editBtn, cancelBtn);
   form.onsubmit = onEdit;
   form.append(textContainer, dataContainer, buttonsContainer);
-  container.append(form);
-  return container;
+  // container.append(form);
+  return form;
 }
 
 export default todoEditForm;

@@ -39,7 +39,7 @@ const todoListView = (function () {
     eventAggregator.publish('deleteTodo', id);
   }
 
-  function onEditTodo(e) {
+  function onShowEditTodo(e) {
     const todo = e.target.closest('[data-id]');
     const id = todo.dataset.id;
     eventAggregator.publish('requestTodoData', id);
@@ -48,17 +48,17 @@ const todoListView = (function () {
   function onTodosSelected({ name, filteredList }) {
     resetList();
     filteredList = filteredList.map(
-      ({ getId, title, priority, desc, dueDate, completed }) =>
+      ({ getId, title, priority, desc, dueDate, complete }) =>
         todoItem(
           getId(),
           title,
           toggleComplete,
           onDeleteTodo,
-          onEditTodo,
+          onShowEditTodo,
           priority,
           desc,
           dueDate,
-          completed
+          complete
         )
     );
     todoList.append(...filteredList);
@@ -73,11 +73,24 @@ const todoListView = (function () {
     addTodoBtn.classList.add('hidden');
   }
 
+  function onEditTodo(e) {
+    e.preventDefault();
+    const { title, desc, date } = editForm.elements;
+    const id = editForm.dataset.editId;
+    const data = {
+      id,
+      title: title.value,
+      desc: desc.value,
+      date: date.value,
+    };
+    eventAggregator.publish('editTodo', data);
+  }
+
   function onShowEditForm({ title, getId, desc, dueDate }) {
     closeForm();
     editForm = todoEditForm(
       { title, id: getId(), desc, dueDate },
-      closeForm,
+      onEditTodo,
       closeForm
     );
     const position = [...todoList.children].findIndex(
@@ -97,6 +110,26 @@ const todoListView = (function () {
     [...todoList.children].find((todo) => todo.dataset.id === id)?.remove();
   }
 
+  function editTodo({ id, title, desc, dueDate, priority, complete }) {
+    const todo = [...todoList.children].find((todo) => todo.dataset.id === id);
+    if (todo) {
+      const newTodo = todoItem(
+        id,
+        title,
+        toggleComplete,
+        onDeleteTodo,
+        onShowEditTodo,
+        priority,
+        desc,
+        dueDate,
+        complete
+      );
+      todoList.replaceChild(newTodo, todo);
+    }
+    closeForm();
+    console.log(id, title, desc, dueDate, complete);
+  }
+
   function initialize(viewContainer) {
     container = viewContainer;
     todosContainer = document.createElement('main');
@@ -114,6 +147,7 @@ const todoListView = (function () {
     eventAggregator.subscribe('todoFormDataSent', onShowTodoForm);
     eventAggregator.subscribe('todoDeleted', removeTodoItem);
     eventAggregator.subscribe('todoDataSent', onShowEditForm);
+    eventAggregator.subscribe('todoEdited', editTodo);
   }
 
   return { initialize };
