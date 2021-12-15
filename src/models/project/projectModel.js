@@ -1,11 +1,51 @@
 import Project from './project';
 import eventAggregator from '../../eventAggregator';
+import {
+  getProjectID,
+  getProjectList,
+  saveProjectID,
+  saveProjectList,
+} from '../../storage';
 
 const projectModel = (function () {
   let projectId = 0;
   const defaultProjectId = '0';
-  const projectList = [];
+  let projectList = [];
   let currentProject = defaultProjectId;
+
+  function getStoredProjects() {
+    const result = getProjectList();
+    if (result) {
+      for (let { id, todoIdList, name } of result) {
+        let project = Project(id, name, todoIdList);
+
+        projectList.push(project);
+        if (id === defaultProjectId) {
+          eventAggregator.publish('defaultAdded', { defaultProjectId, name });
+        } else {
+          eventAggregator.publish('projectCreated', {
+            name,
+            projectId: `${id}`,
+          });
+        }
+      }
+    }
+  }
+
+  function getStoredId() {
+    const id = getProjectID();
+    if (id) projectId = parseInt(id);
+  }
+
+  function storeProjectList() {
+    saveProjectList(
+      projectList.map((p) => ({
+        id: p.getId(),
+        todoIdList: p.getTodoIdList(),
+        ...p,
+      }))
+    );
+  }
 
   function createProject(name) {
     projectId += 1;
@@ -15,6 +55,8 @@ const projectModel = (function () {
       name,
       projectId: `${projectId}`,
     });
+    storeProjectList();
+    saveProjectID(projectId);
     return project.getId();
   }
 
@@ -25,6 +67,7 @@ const projectModel = (function () {
     if (id === currentProject) {
       selectProject(defaultProjectId);
     }
+    storeProjectList();
   }
 
   function getProject(id) {
@@ -33,6 +76,7 @@ const projectModel = (function () {
   function assignTodoToProject(projectId, todoId) {
     const project = getProject(projectId);
     project.addTodo(todoId);
+    storeProjectList();
   }
 
   function getProjects() {
@@ -51,16 +95,22 @@ const projectModel = (function () {
     eventAggregator.publish('projectSelected', id);
   }
 
-  function createDefaultProject() {
-    const name = 'Inbox';
-    const project = Project(defaultProjectId, name);
+  function createDefaultProject(name = 'Inbox', todoIdList = []) {
+    const project = Project(defaultProjectId, name, todoIdList);
     projectList.push(project);
     eventAggregator.publish('defaultAdded', { defaultProjectId, name });
-    selectProject(defaultProjectId);
+    storeProjectList();
   }
 
   function getCurrentProject() {
     return currentProject;
+  }
+
+  function initialize() {
+    getStoredProjects();
+    getStoredId();
+    if (!getProject(defaultProjectId)) createDefaultProject();
+    selectProject(defaultProjectId);
   }
 
   return {
@@ -73,6 +123,7 @@ const projectModel = (function () {
     getDefaultProjectId,
     getProjects,
     getCurrentProject,
+    initialize,
   };
 })();
 

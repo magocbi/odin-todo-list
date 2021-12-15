@@ -1,6 +1,4 @@
-function Project(id, name) {
-  const todoIdList = [];
-
+function Project(id, name, todoIdList = []) {
   function getId() {
     return id;
   }

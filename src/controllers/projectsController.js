@@ -34,7 +34,7 @@ const projectsController = (function () {
     eventAggregator.subscribe('selectProject', onProjectSelect);
     eventAggregator.subscribe('todoFormDataRequired', onProjectListRequired);
     eventAggregator.subscribe('todoCreated', assignTodo);
-    projectModel.createDefaultProject();
+    projectModel.initialize();
   }
   return { initialize };
 })();
