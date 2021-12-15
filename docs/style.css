@@ -198,8 +198,9 @@ main > h2 {
 }
 
 .todo-item {
+  --priority-color: hsl(var(--clr-black) / 0.15);
   width: 80%;
-  border: 1px solid hsl(var(--clr-black) / 0.15);
+  border: 1px solid var(--priority-color);
   border-radius: 20px;
   padding: 1em;
   display: flex;

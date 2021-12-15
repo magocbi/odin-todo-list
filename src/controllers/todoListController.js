@@ -8,8 +8,8 @@ const todoListController = (function () {
     todoModel.filterList(name, todoIdList);
   }
 
-  function onTodoCreation({ title, desc, date, project }) {
-    todoModel.createTodo(title, project, desc, date);
+  function onTodoCreation({ title, desc, date, project, priority }) {
+    todoModel.createTodo(title, project, desc, date, priority);
   }
 
   function onToggleCompletion(id) {

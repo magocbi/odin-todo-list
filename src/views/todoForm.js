@@ -1,4 +1,5 @@
 import eventAggregator from '../eventAggregator';
+import priorities from '../priorities';
 
 function todoForm(projectList, selectedId, closeForm) {
   const container = document.createElement('div');
@@ -7,12 +8,13 @@ function todoForm(projectList, selectedId, closeForm) {
 
   function onSubmit(e) {
     e.preventDefault();
-    const { title, desc, date, project } = form.elements;
+    const { title, desc, date, project, priority } = form.elements;
     const data = {
       title: title.value,
       desc: desc.value,
       date: date.value,
       project: project.value,
+      priority: priority.value,
     };
     eventAggregator.publish('createTodo', data);
     closeForm();
@@ -50,6 +52,19 @@ function todoForm(projectList, selectedId, closeForm) {
     projectSelect.appendChild(option);
   }
 
+  const prioritySelect = document.createElement('select');
+  prioritySelect.classList.add('dropdown-priority');
+  prioritySelect.name = 'priority';
+  for (let [index, priority] of priorities.entries()) {
+    const option = document.createElement('option');
+    option.value = `${index}`;
+    option.textContent = `Priority ${index + 1}`;
+    if (index + 1 === priorities.length) {
+      option.selected = true;
+    }
+    prioritySelect.appendChild(option);
+  }
+
   const buttonsContainer = document.createElement('div');
   buttonsContainer.classList.add('button-container');
   const addBtn = document.createElement('button');
@@ -63,7 +78,7 @@ function todoForm(projectList, selectedId, closeForm) {
   cancelBtn.onclick = closeForm;
 
   textContainer.append(title, description);
-  dataContainer.append(date, projectSelect);
+  dataContainer.append(date, projectSelect, prioritySelect);
   buttonsContainer.append(addBtn, cancelBtn);
   form.onsubmit = onSubmit;
   form.append(textContainer, dataContainer, buttonsContainer);

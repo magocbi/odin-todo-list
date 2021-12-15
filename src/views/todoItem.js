@@ -1,3 +1,5 @@
+import priorities from '../priorities';
+
 function todoItem(
   id,
   title,
@@ -34,6 +36,11 @@ function todoItem(
   deleteBtn.textContent = '-';
   deleteBtn.classList.add('danger-btn');
   deleteBtn.onclick = onDeleteTodo;
+
+  for (let [index, color] of priorities.entries()) {
+    if (`${index}` === priority)
+      todo.style.setProperty('--priority-color', color);
+  }
 
   const description = document.createElement('p');
   description.classList.add('description');

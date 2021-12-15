@@ -86,10 +86,10 @@ const todoListView = (function () {
     eventAggregator.publish('editTodo', data);
   }
 
-  function onShowEditForm({ title, getId, desc, dueDate }) {
+  function onShowEditForm({ title, getId, desc, dueDate, priority }) {
     closeForm();
     editForm = todoEditForm(
-      { title, id: getId(), desc, dueDate },
+      { title, id: getId(), desc, dueDate, priority },
       onEditTodo,
       closeForm
     );
@@ -127,7 +127,6 @@ const todoListView = (function () {
       todoList.replaceChild(newTodo, todo);
     }
     closeForm();
-    console.log(id, title, desc, dueDate, complete);
   }
 
   function initialize(viewContainer) {
