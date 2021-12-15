@@ -202,6 +202,7 @@ main > h2 {
   padding: 1em;
   display: flex;
   flex-direction: column;
+  gap: 0.3rem;
 }
 
 .todo-header {
