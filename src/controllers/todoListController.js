@@ -20,6 +20,12 @@ const todoListController = (function () {
     todoModel.removeTodo(id);
   }
 
+  function deleteTodos({ todoIdList }) {
+    for (let todoId of todoIdList) {
+      todoModel.removeTodo(todoId);
+    }
+  }
+
   function onRequestTodoData(id) {
     const todo = todoModel.getTodo(id);
     if (todo) eventAggregator.publish('todoDataSent', todo);
@@ -36,6 +42,7 @@ const todoListController = (function () {
     eventAggregator.subscribe('deleteTodo', onDeleteTodo);
     eventAggregator.subscribe('requestTodoData', onRequestTodoData);
     eventAggregator.subscribe('editTodo', onTodoEdit);
+    eventAggregator.subscribe('projectDeleted', deleteTodos);
     todoModel.initialize();
   }
 

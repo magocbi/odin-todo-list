@@ -30,7 +30,7 @@ const projectsView = (function () {
     eventAggregator.publish('selectProject', projectId);
   }
 
-  function deleteProject(id) {
+  function deleteProject({ id }) {
     [...projectList.children]
       .find((project) => project.dataset.id === id)
       ?.remove();

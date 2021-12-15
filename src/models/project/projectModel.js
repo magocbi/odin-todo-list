@@ -62,8 +62,11 @@ const projectModel = (function () {
 
   function deleteProject(id) {
     const index = projectList.findIndex((project) => project.getId() === id);
-    projectList.splice(index, 1);
-    eventAggregator.publish('projectDeleted', id);
+    const project = projectList.splice(index, 1)[0];
+    eventAggregator.publish('projectDeleted', {
+      id,
+      todoIdList: project.getTodoIdList(),
+    });
     if (id === currentProject) {
       selectProject(defaultProjectId);
     }
