@@ -75,13 +75,14 @@ const todoListView = (function () {
 
   function onEditTodo(e) {
     e.preventDefault();
-    const { title, desc, date } = editForm.elements;
+    const { title, desc, date, priority } = editForm.elements;
     const id = editForm.dataset.editId;
     const data = {
       id,
       title: title.value,
       desc: desc.value,
       date: date.value,
+      priority: priority.value,
     };
     eventAggregator.publish('editTodo', data);
   }

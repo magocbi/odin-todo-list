@@ -31,8 +31,8 @@ const todoListController = (function () {
     if (todo) eventAggregator.publish('todoDataSent', todo);
   }
 
-  function onTodoEdit({ id, title, desc, date: dueDate }) {
-    todoModel.editTodo(id, { title, desc, dueDate });
+  function onTodoEdit({ id, title, desc, date: dueDate, priority }) {
+    todoModel.editTodo(id, { title, desc, dueDate, priority });
   }
 
   function initialize() {
