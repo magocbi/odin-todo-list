@@ -6,13 +6,12 @@ const defaultNavView = (function () {
   let defaultNav;
   let defaultList;
 
-  eventAggregator.subscribe('defaultAdded', addDefault);
-
   function onSelect(e) {
     e.stopPropagation();
     if (e.target.nodeName === 'BUTTON') return;
-    const id = e.target.closest('[data-id]').dataset.id;
-    eventAggregator.publish('projectSelected', id);
+    const item = e.target.closest('[data-id]');
+    const id = item.dataset.id;
+    eventAggregator.publish('selectProject', id);
   }
 
   function addDefault({ defaultProjectId, name }) {
@@ -30,7 +29,23 @@ const defaultNavView = (function () {
     emptyDefaultList();
   }
 
+  function selectDefault(id) {
+    highlightSelected(id);
+  }
+
+  function highlightSelected(id) {
+    for (let item of defaultList.children) {
+      if (item.dataset.id === id) {
+        item.classList.add('selected');
+      } else {
+        item.classList.remove('selected');
+      }
+    }
+  }
+
   function initialize(viewContainer) {
+    eventAggregator.subscribe('defaultAdded', addDefault);
+    eventAggregator.subscribe('projectSelected', selectDefault);
     container = viewContainer;
     defaultNav = document.createElement('nav');
     defaultNav.id = 'default-nav';

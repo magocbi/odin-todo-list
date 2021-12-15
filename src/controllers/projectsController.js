@@ -3,7 +3,8 @@ import eventAggregator from '../eventAggregator';
 
 const projectsController = (function () {
   function onProjectCreation(name) {
-    projectModel.createProject(name);
+    const id = projectModel.createProject(name);
+    projectModel.selectProject(id);
   }
 
   function onProjectDelete(id) {
@@ -30,7 +31,7 @@ const projectsController = (function () {
   function initialize() {
     eventAggregator.subscribe('createProject', onProjectCreation);
     eventAggregator.subscribe('deleteProject', onProjectDelete);
-    eventAggregator.subscribe('projectSelected', onProjectSelect);
+    eventAggregator.subscribe('selectProject', onProjectSelect);
     eventAggregator.subscribe('todoFormDataRequired', onProjectListRequired);
     eventAggregator.subscribe('todoCreated', assignTodo);
     projectModel.createDefaultProject();

@@ -6,9 +6,6 @@ const projectsView = (function () {
   let projectsNav;
   let projectList;
 
-  eventAggregator.subscribe('projectCreated', addProject);
-  eventAggregator.subscribe('projectDeleted', deleteProject);
-
   function emptyProjects() {
     while (projectList.firstChild) {
       projectList.firstChild.remove();
@@ -17,8 +14,9 @@ const projectsView = (function () {
   function onSelect(e) {
     e.stopPropagation();
     if (e.target.nodeName === 'BUTTON') return;
-    const id = e.target.closest('[data-id]').dataset.id;
-    eventAggregator.publish('projectSelected', id);
+    const project = e.target.closest('[data-id]');
+    const id = project.dataset.id;
+    eventAggregator.publish('selectProject', id);
   }
 
   function onDelete(e) {
@@ -29,7 +27,7 @@ const projectsView = (function () {
   function addProject({ name, projectId }) {
     const project = navProject(projectId, name, onSelect, onDelete);
     projectList.append(project);
-    eventAggregator.publish('projectSelected', projectId);
+    eventAggregator.publish('selectProject', projectId);
   }
 
   function deleteProject(id) {
@@ -40,6 +38,20 @@ const projectsView = (function () {
 
   function onShowProjectForm() {
     eventAggregator.publish('showProjectForm');
+  }
+
+  function selectProject(id) {
+    highlightSelected(id);
+  }
+
+  function highlightSelected(id) {
+    for (let project of projectList.children) {
+      if (project.dataset.id === id) {
+        project.classList.add('selected');
+      } else {
+        project.classList.remove('selected');
+      }
+    }
   }
 
   function render() {
@@ -57,6 +69,9 @@ const projectsView = (function () {
   }
 
   function initialize(viewContainer) {
+    eventAggregator.subscribe('projectCreated', addProject);
+    eventAggregator.subscribe('projectDeleted', deleteProject);
+    eventAggregator.subscribe('projectSelected', selectProject);
     container = viewContainer;
     projectsNav = document.createElement('nav');
     projectsNav.id = 'projects-nav';

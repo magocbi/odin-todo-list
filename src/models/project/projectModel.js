@@ -15,6 +15,7 @@ const projectModel = (function () {
       name,
       projectId: `${projectId}`,
     });
+    return project.getId();
   }
 
   function deleteProject(id) {
@@ -47,6 +48,7 @@ const projectModel = (function () {
     let project = getProject(id);
     let todoIdList = project.getTodoIdList();
     eventAggregator.publish('selectTodos', { todoIdList, name: project.name });
+    eventAggregator.publish('projectSelected', id);
   }
 
   function createDefaultProject() {
