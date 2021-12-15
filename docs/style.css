@@ -276,9 +276,10 @@ main > h2 {
   background-color: hsl(var(--clr-black) / 0.5);
 }
 
-/* Add todo form */
+/*  todo forms */
 
-.add-todo-form {
+.add-todo-form,
+.edit-todo-form {
   width: 80%;
   border: 1px solid hsl(var(--clr-black) / 0.15);
   border-radius: 20px;
