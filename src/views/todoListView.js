@@ -137,6 +137,7 @@ const todoListView = (function () {
     todoList = document.createElement('ul');
     todoList.classList.add('todo-list');
     addTodoBtn = document.createElement('button');
+    addTodoBtn.classList.add('add-todo-btn');
     addTodoBtn.type = 'button';
     addTodoBtn.textContent = 'Add Todo';
     addTodoBtn.onclick = onAddTodo;

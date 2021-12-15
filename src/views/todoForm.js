@@ -3,6 +3,7 @@ import eventAggregator from '../eventAggregator';
 function todoForm(projectList, selectedId, closeForm) {
   const container = document.createElement('div');
   const form = document.createElement('form');
+  form.classList.add('add-todo-form');
 
   function onSubmit(e) {
     e.preventDefault();
@@ -18,18 +19,26 @@ function todoForm(projectList, selectedId, closeForm) {
   }
 
   const textContainer = document.createElement('div');
+  textContainer.classList.add('text-data');
   const title = document.createElement('input');
+  title.classList.add('todo-title');
   title.type = 'text';
   title.required = true;
   title.name = 'title';
+  title.placeholder = 'Task that must be completed';
   const description = document.createElement('textarea');
+  description.classList.add('description');
   description.name = 'desc';
+  description.placeholder = 'Description...';
 
   const dataContainer = document.createElement('div');
+  dataContainer.classList.add('meta-data');
   const date = document.createElement('input');
+  date.classList.add('date');
   date.type = 'date';
   date.name = 'date';
   const projectSelect = document.createElement('select');
+  projectSelect.classList.add('dropdown-project');
   projectSelect.name = 'project';
   for (let project of projectList) {
     const option = document.createElement('option');
@@ -42,10 +51,13 @@ function todoForm(projectList, selectedId, closeForm) {
   }
 
   const buttonsContainer = document.createElement('div');
+  buttonsContainer.classList.add('button-container');
   const addBtn = document.createElement('button');
+  addBtn.classList.add('success-btn');
   addBtn.type = 'submit';
   addBtn.textContent = 'Add';
   const cancelBtn = document.createElement('button');
+  cancelBtn.classList.add('danger-btn');
   cancelBtn.type = 'button';
   cancelBtn.textContent = 'Cancel';
   cancelBtn.onclick = closeForm;
