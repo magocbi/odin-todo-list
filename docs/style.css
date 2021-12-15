@@ -103,6 +103,7 @@ body {
 }
 
 .project-item {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -115,7 +116,8 @@ body {
 }
 
 .project-item.selected {
-  background-color: hsl(var(--clr-black) / 0.4);
+  background-color: hsl(var(--clr-black) / 0.8);
+  color: hsl(var(--clr-white));
 }
 
 .default-list .project-item {
