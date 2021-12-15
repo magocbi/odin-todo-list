@@ -4,7 +4,8 @@ const TODO_ID = 'todoID';
 const PROJECT_ID = 'projectID';
 
 function saveTodoList(todoList) {
-  localStorage.setItem(TODO_LIST, todoList);
+  const toBeStored = JSON.stringify(todoList);
+  localStorage.setItem(TODO_LIST, toBeStored);
 }
 
 function saveProjectList(projectList) {
@@ -13,11 +14,13 @@ function saveProjectList(projectList) {
 }
 
 function saveProjectID(projectID) {
-  localStorage.setItem(PROJECT_ID, projectID);
+  const toBeStored = JSON.stringify(projectID);
+  localStorage.setItem(PROJECT_ID, toBeStored);
 }
 
 function saveTodoID(todoID) {
-  localStorage.setItem(TODO_ID, todoID);
+  const toBeStored = JSON.stringify(todoID);
+  localStorage.setItem(TODO_ID, toBeStored);
 }
 
 function getTodoList() {

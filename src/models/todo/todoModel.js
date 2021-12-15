@@ -1,10 +1,51 @@
 import Todo from './todo.js';
 import eventAggregator from '../../eventAggregator.js';
+import {
+  getTodoID,
+  getTodoList,
+  saveTodoID,
+  saveTodoList,
+} from '../../storage.js';
 
 const todoModel = (function () {
-  const todoList = [];
+  let todoList = [];
   let filteredList = [];
   let todoId = 0;
+
+  function getStoredTodos() {
+    const todos = getTodoList();
+    if (todos) {
+      for (let {
+        id,
+        title,
+        desc,
+        dueDate,
+        priority,
+        notes,
+        complete,
+      } of todos) {
+        const todo = Todo(
+          `${id}`,
+          title,
+          desc,
+          dueDate,
+          priority,
+          notes,
+          complete
+        );
+        todoList.push(todo);
+      }
+    }
+  }
+
+  function getStoredId() {
+    const id = getTodoID();
+    if (id) todoId = id;
+  }
+
+  function storeTodoList() {
+    saveTodoList(todoList.map((todo) => ({ id: todo.getId(), ...todo })));
+  }
 
   function createTodo(
     title,
@@ -27,6 +68,8 @@ const todoModel = (function () {
     );
     todoList.push(todo);
     eventAggregator.publish('todoCreated', { project, todo: todo.getId() });
+    storeTodoList();
+    saveTodoID(todoId);
   }
 
   function removeTodo(id) {
@@ -34,6 +77,7 @@ const todoModel = (function () {
     if (index >= 0) {
       todoList.splice(index, 1);
       eventAggregator.publish('todoDeleted', id);
+      storeTodoList();
     }
     return index;
   }
@@ -43,6 +87,7 @@ const todoModel = (function () {
     if (todo) {
       Object.assign(todo, data);
       eventAggregator.publish('todoEdited', { id, ...todo });
+      storeTodoList();
     }
   }
 
@@ -62,6 +107,12 @@ const todoModel = (function () {
   function toggleCompletion(id) {
     const todo = getTodo(id);
     todo.complete = !todo.complete;
+    storeTodoList();
+  }
+
+  function initialize() {
+    getStoredTodos();
+    getStoredId();
   }
 
   return {
@@ -72,6 +123,7 @@ const todoModel = (function () {
     getTodosFromIdList,
     filterList,
     toggleCompletion,
+    initialize,
   };
 })();
 

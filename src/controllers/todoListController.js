@@ -36,6 +36,7 @@ const todoListController = (function () {
     eventAggregator.subscribe('deleteTodo', onDeleteTodo);
     eventAggregator.subscribe('requestTodoData', onRequestTodoData);
     eventAggregator.subscribe('editTodo', onTodoEdit);
+    todoModel.initialize();
   }
 
   return { initialize };
