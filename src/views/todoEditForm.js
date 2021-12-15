@@ -15,10 +15,12 @@ function todoEditForm({ title, id, desc, dueDate, priority }, onEdit, onClose) {
   todoTitle.required = true;
   todoTitle.name = 'title';
   todoTitle.value = title;
+  todoTitle.placeholder = 'Task that must be completed';
   const description = document.createElement('textarea');
   description.classList.add('description');
   description.name = 'desc';
   description.value = desc;
+  description.placeholder = 'Description...';
 
   const dataContainer = document.createElement('div');
   dataContainer.classList.add('meta-data');
