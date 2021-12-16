@@ -71,6 +71,7 @@ const todoListView = (function () {
     addForm = todoForm(projectList, selectedId, closeForm);
     todosContainer.append(addForm);
     addTodoBtn.classList.add('hidden');
+    addForm.elements.title.focus();
   }
 
   function onEditTodo(e) {
@@ -101,6 +102,7 @@ const todoListView = (function () {
     todoList.insertBefore(editForm, todo);
     todo.classList.add('hidden');
     addTodoBtn.classList.add('hidden');
+    editForm.elements.title.focus();
   }
 
   function onAddTodo(e) {

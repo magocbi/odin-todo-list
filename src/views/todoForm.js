@@ -2,7 +2,6 @@ import eventAggregator from '../eventAggregator';
 import priorities from '../priorities';
 
 function todoForm(projectList, selectedId, closeForm) {
-  const container = document.createElement('div');
   const form = document.createElement('form');
   form.classList.add('add-todo-form');
 
@@ -82,8 +81,7 @@ function todoForm(projectList, selectedId, closeForm) {
   buttonsContainer.append(addBtn, cancelBtn);
   form.onsubmit = onSubmit;
   form.append(textContainer, dataContainer, buttonsContainer);
-  container.append(form);
-  return container;
+  return form;
 }
 
 export default todoForm;

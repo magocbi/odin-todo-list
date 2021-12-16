@@ -15,6 +15,7 @@ function App(container) {
 
   function onShowProjectForm() {
     formProject.classList.remove('hidden');
+    formProject.querySelector('form')?.elements.name.focus();
   }
 
   sidebar.initialize(container);
