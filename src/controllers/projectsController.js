@@ -28,6 +28,10 @@ const projectsController = (function () {
     projectModel.selectProject(project);
   }
 
+  function deleteTodoFromProject(id) {
+    projectModel.removeTodoFromProject(id);
+  }
+
   function initialize() {
     eventAggregator.subscribe('createProject', onProjectCreation);
     eventAggregator.subscribe('deleteProject', onProjectDelete);
@@ -35,6 +39,7 @@ const projectsController = (function () {
     eventAggregator.subscribe('todoFormDataRequired', onProjectListRequired);
     eventAggregator.subscribe('todoCreated', assignTodo);
     projectModel.initialize();
+    eventAggregator.subscribe('todoDeleted', deleteTodoFromProject);
   }
   return { initialize };
 })();

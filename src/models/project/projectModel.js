@@ -109,6 +109,13 @@ const projectModel = (function () {
     return currentProject;
   }
 
+  function removeTodoFromProject(id) {
+    for (let project of projectList) {
+      project.deleteTodo(id);
+    }
+    storeProjectList();
+  }
+
   function initialize() {
     getStoredProjects();
     getStoredId();
@@ -126,6 +133,7 @@ const projectModel = (function () {
     getDefaultProjectId,
     getProjects,
     getCurrentProject,
+    removeTodoFromProject,
     initialize,
   };
 })();

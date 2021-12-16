@@ -1,5 +1,6 @@
 import Todo from './todo.js';
 import eventAggregator from '../../eventAggregator.js';
+import { isEqual, isToday, parseISO } from 'date-fns';
 import {
   getTodoID,
   getTodoList,
@@ -110,6 +111,25 @@ const todoModel = (function () {
     storeTodoList();
   }
 
+  function getTodosByDate(filterFn) {
+    return todoList.filter(({ dueDate }) => {
+      return filterFn(parseISO(dueDate));
+    });
+  }
+
+  function filterByDate(filterValue) {
+    switch (filterValue) {
+      case 'today':
+        filteredList = getTodosByDate(isToday);
+
+        break;
+    }
+    eventAggregator.publish('todosSelected', {
+      name: filterValue.toUpperCase(),
+      filteredList,
+    });
+  }
+
   function initialize() {
     getStoredTodos();
     getStoredId();
@@ -124,6 +144,7 @@ const todoModel = (function () {
     filterList,
     toggleCompletion,
     initialize,
+    filterByDate,
   };
 })();
 

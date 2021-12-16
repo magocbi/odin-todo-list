@@ -35,6 +35,14 @@ const todoListController = (function () {
     todoModel.editTodo(id, { title, desc, dueDate, priority });
   }
 
+  function filterTodo({ type, filterValue }) {
+    switch (type) {
+      case 'date':
+        todoModel.filterByDate(filterValue);
+        break;
+    }
+  }
+
   function initialize() {
     eventAggregator.subscribe('selectTodos', onSelectTodos);
     eventAggregator.subscribe('createTodo', onTodoCreation);
@@ -44,6 +52,7 @@ const todoListController = (function () {
     eventAggregator.subscribe('editTodo', onTodoEdit);
     eventAggregator.subscribe('projectDeleted', deleteTodos);
     todoModel.initialize();
+    eventAggregator.subscribe('filterTodo', filterTodo);
   }
 
   return { initialize };

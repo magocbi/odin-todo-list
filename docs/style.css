@@ -94,7 +94,8 @@ body {
 }
 
 .project-list,
-.default-list {
+.default-list,
+.filter-list {
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -102,7 +103,8 @@ body {
   padding: 0;
 }
 
-.project-item {
+.project-item,
+.filter-item {
   width: 100%;
   display: flex;
   align-items: center;
@@ -111,16 +113,22 @@ body {
   padding: 0 0.3em;
 }
 
-.project-item:hover {
+.project-item:hover,
+.filter-item:hover {
   background-color: hsl(var(--clr-black) / 0.2);
 }
 
-.project-item.selected {
+.project-item.selected,
+.filter-item.selected {
   background-color: hsl(var(--clr-black) / 0.8);
   color: hsl(var(--clr-white));
 }
 
 .default-list .project-item {
+  justify-content: center;
+}
+
+.filter-list .filter-item {
   justify-content: center;
 }
 
